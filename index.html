@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMO ❤️ DEEP</title>
+    <!-- Luxury Romantic Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #140206;
+            --maroon-deep: #2b040c;
+            --maroon-rich: #4a0714;
+            --gold-light: #fceabb;
+            --gold-mid: #f8b500;
+            --gold-dark: #b8860b;
+            --petal-pink-light: #ffccd5;
+            --petal-pink-mid: #ff758f;
+            --petal-maroon: #800f2f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at center, var(--maroon-rich) 0%, var(--maroon-deep) 55%, var(--bg-dark) 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold-light);
+            position: relative;
+        }
+
+        /* Ambient Gold Dust Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, #fff3b0, var(--gold-mid));
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatParticle linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            30% {
+                opacity: 0.8;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* ================= PASSWORD SCREEN ================= */
+        #lock-screen {
+            position: relative;
+            z-index: 10;
+            background: rgba(25, 3, 8, 0.75);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(248, 181, 0, 0.35);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), inset 0 0 25px rgba(248, 181, 0, 0.1);
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            width: 90%;
+            max-width: 420px;
+            transition: all 0.9s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        #lock-screen.hidden {
+            opacity: 0;
+            transform: scale(0.85) translateY(-30px);
+            pointer-events: none;
+        }
+
+        .lock-crest {
+            font-size: 2.2rem;
+            color: var(--gold-mid);
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(248, 181, 0, 0.6);
+        }
+
+        .lock-title {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 1.6rem;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #fceabb, #f8b500, #fceabb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .lock-subtitle {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #e0b1cb;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        #password-input {
+            width: 100%;
+            padding: 14px 20px;
+            background: rgba(15, 2, 5, 0.8);
+            border: 1px solid rgba(248, 181, 0, 0.5);
+            border-radius: 50px;
+            color: var(--gold-light);
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.1rem;
+            text-align: center;
+            letter-spacing: 5px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        #password-input::placeholder {
+            letter-spacing: 2px;
+            font-family: 'Cormorant Garamond', serif;
+            color: rgba(252, 234, 187, 0.4);
+            font-size: 1rem;
+        }
+
+        #password-input:focus {
+            border-color: var(--gold-mid);
+            box-shadow: 0 0 20px rgba(248, 181, 0, 0.35);
+        }
+
+        .unlock-btn {
+            background: linear-gradient(135deg, #d4af37 0%, #f8b500 50%, #aa7c11 100%);
+            color: #1f0308;
+            border: none;
+            padding: 13px 40px;
+            border-radius: 50px;
+            font-family: 'Cinzel Decorative', serif;
+            font-weight: 900;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(248, 181, 0, 0.3);
+        }
+
+        .unlock-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(248, 181, 0, 0.5);
+        }
+
+        #error-msg {
+            color: #ff758f;
+            font-size: 0.95rem;
+            margin-top: 15px;
+            min-height: 20px;
+            font-style: italic;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .shake {
+            animation: shakeAnim 0.4s ease-in-out;
+        }
+
+        @keyframes shakeAnim {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+        }
+
+        /* ================= MAIN ROMANTIC SCENE ================= */
+        #main-scene {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6vh 20px 8vh;
+            z-index: 5;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.5s ease;
+        }
+
+        #main-scene.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Top Animated Header: LUMO <3 DEEP */
+        .top-header {
+            text-align: center;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(-30px);
+            transition: all 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
+        }
+
+        #main-scene.active .top-header {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .couple-title {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: clamp(2rem, 6vw, 3.8rem);
+            font-weight: 900;
+            letter-spacing: 6px;
+            background: linear-gradient(90deg, #b8860b, #fceabb, #ffffff, #f8b500, #b8860b);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: goldShimmer 4s linear infinite;
+            filter: drop-shadow(0 0 18px rgba(248, 181, 0, 0.45));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .heart-beat {
+            display: inline-block;
+            color: #ff4d6d;
+            -webkit-text-fill-color: #ff4d6d;
+            font-size: 0.9em;
+            filter: drop-shadow(0 0 15px rgba(255, 77, 109, 0.8));
+            animation: heartbeat 1.4s infinite ease-in-out;
+        }
+
+        @keyframes goldShimmer {
+            to { background-position: 200% center; }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.28); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.18); }
+        }
+
+        /* ================= FULL BLOOMING LOTUS ================= */
+        .lotus-wrapper {
+            position: relative;
+            width: 340px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin: auto 0;
+        }
+
+        /* Golden Divine Aura behind Lotus */
+        .lotus-glow {
+            position: absolute;
+            bottom: 30px;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(248, 181, 0, 0.35) 0%, rgba(255, 77, 109, 0.15) 45%, transparent 70%);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 3.5s ease-out 0.8s;
+            filter: blur(10px);
+        }
+
+        #main-scene.active .lotus-glow {
+            transform: scale(1.3);
+            animation: pulseGlow 4s infinite alternate ease-in-out 4s;
+        }
+
+        @keyframes pulseGlow {
+            from { opacity: 0.7; transform: scale(1.25); }
+            to { opacity: 1; transform: scale(1.4); }
+        }
+
+        .lotus-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            bottom: 35px;
+        }
+
+        /* Lotus Petals */
+        .petal {
+            position: absolute;
+            bottom: 0;
+            transform-origin: bottom center;
+            border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
+            transition: transform 3.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 2s ease;
+            opacity: 0;
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3), 0 -5px 20px rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(255, 230, 180, 0.6);
+        }
+
+        /* Outer Layer Petals (Deep Maroon & Gold) */
+        .petal.outer {
+            width: 75px;
+            height: 175px;
+            background: linear-gradient(to top, #3d030e 0%, #800f2f 55%, #c9184a 90%, #fceabb 100%);
+            z-index: 2;
+        }
+
+        /* Middle Layer Petals (Rich Rose & Crimson) */
+        .petal.middle {
+            width: 68px;
+            height: 165px;
+            background: linear-gradient(to top, #590d22 0%, #a4133c 50%, #ff4d6d 88%, #fff0f3 100%);
+            z-index: 3;
+        }
+
+        /* Inner Layer Petals (Soft Blush & Pearl) */
+        .petal.inner {
+            width: 58px;
+            height: 145px;
+            background: linear-gradient(to top, #800f2f 0%, #ff758f 55%, #ffb3c1 85%, #ffffff 100%);
+            z-index: 4;
+        }
+
+        /* Center Bud & Golden Core */
+        .petal.center {
+            width: 48px;
+            height: 130px;
+            background: linear-gradient(to top, #a4133c 0%, #ff8fa3 60%, #fff0f3 100%);
+            z-index: 5;
+            transform: rotate(0deg) scale(0.3);
+        }
+
+        .lotus-core {
+            position: absolute;
+            bottom: 35px;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #fff3b0, #f8b500, #b8860b);
+            border-radius: 50%;
+            z-index: 6;
+            opacity: 0;
+            box-shadow: 0 0 25px #f8b500, 0 0 45px #fceabb;
+            transition: all 2.5s ease 1.8s;
+        }
+
+        /* Initial Closed Bud State */
+        .p-o1, .p-o2, .p-o3, .p-o4, .p-o5, .p-o6,
+        .p-m1, .p-m2, .p-m3, .p-m4,
+        .p-i1, .p-i2 {
+            transform: rotate(0deg) scaleY(0.4);
+        }
+
+        /* Blooming State when Active */
+        #main-scene.active .petal {
+            opacity: 1;
+        }
+
+        #main-scene.active .petal.center {
+            transform: rotate(0deg) scale(1);
+            transition-delay: 0.6s;
+        }
+
+        /* Inner Petals Open */
+        #main-scene.active .p-i1 { transform: rotate(-16deg) scale(1); transition-delay: 0.9s; }
+        #main-scene.active .p-i2 { transform: rotate(16deg) scale(1); transition-delay: 0.9s; }
+
+        /* Middle Petals Open */
+        #main-scene.active .p-m1 { transform: rotate(-32deg) scale(1); transition-delay: 1.2s; }
+        #main-scene.active .p-m2 { transform: rotate(32deg) scale(1); transition-delay: 1.2s; }
+        #main-scene.active .p-m3 { transform: rotate(-48deg) scale(0.98); transition-delay: 1.4s; }
+        #main-scene.active .p-m4 { transform: rotate(48deg) scale(0.98); transition-delay: 1.4s; }
+
+        /* Outer Petals Full Bloom */
+        #main-scene.active .p-o1 { transform: rotate(-64deg) scale(0.95); transition-delay: 1.6s; }
+        #main-scene.active .p-o2 { transform: rotate(64deg) scale(0.95); transition-delay: 1.6s; }
+        #main-scene.active .p-o3 { transform: rotate(-78deg) scale(0.92); transition-delay: 1.8s; }
+        #main-scene.active .p-o4 { transform: rotate(78deg) scale(0.92); transition-delay: 1.8s; }
+
+        #main-scene.active .lotus-core {
+            opacity: 1;
+            transform: translateY(-25px) scale(1.1);
+        }
+
+        /* Lotus Base / Water Reflection */
+        .lotus-base {
+            position: absolute;
+            bottom: 22px;
+            width: 240px;
+            height: 22px;
+            background: radial-gradient(ellipse at center, rgba(248, 181, 0, 0.45) 0%, rgba(128, 15, 47, 0.3) 60%, transparent 80%);
+            border-radius: 50%;
+            z-index: 1;
+            transform: scaleX(0);
+            transition: transform 2.5s ease 1s;
+        }
+
+        #main-scene.active .lotus-base {
+            transform: scaleX(1);
+        }
+
+        /* ================= BOTTOM LOVE MESSAGE ================= */
+        .bottom-message {
+            text-align: center;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.8s cubic-bezier(0.22, 1, 0.36, 1) 2.3s;
+        }
+
+        #main-scene.active .bottom-message {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .love-declaration {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+            font-weight: 700;
+            letter-spacing: 5px;
+            color: var(--gold-light);
+            text-shadow: 0 0 20px rgba(248, 181, 0, 0.7), 0 0 40px rgba(255, 77, 109, 0.5);
+            animation: textGlowPulse 3s infinite alternate ease-in-out 3.5s;
+        }
+
+        .ornament-line {
+            width: 180px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-mid), transparent);
+            margin: 14px auto 0;
+        }
+
+        @keyframes textGlowPulse {
+            from {
+                text-shadow: 0 0 15px rgba(248, 181, 0, 0.5), 0 0 25px rgba(255, 77, 109, 0.3);
+                letter-spacing: 5px;
+            }
+            to {
+                text-shadow: 0 0 25px rgba(252, 234, 187, 0.95), 0 0 45px rgba(248, 181, 0, 0.8);
+                letter-spacing: 7px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Golden Dust -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Password Lock Screen -->
+    <div id="lock-screen">
+        <div class="lock-crest">❖</div>
+        <h1 class="lock-title">Private Sanctuary</h1>
+        <p class="lock-subtitle">Enter the secret key to unlock my heart</p>
+        
+        <div class="input-group">
+            <input type="password" id="password-input" placeholder="Enter Password..." autocomplete="off">
+        </div>
+        
+        <button class="unlock-btn" onclick="checkPassword()">UNLOCK</button>
+        <p id="error-msg">Incorrect key, my love. Try again.</p>
+    </div>
+
+    <!-- Main Romantic Lotus Scene -->
+    <div id="main-scene">
+        <!-- Top Animated Text -->
+        <div class="top-header">
+            <h1 class="couple-title">
+                LUMO <span class="heart-beat">❤️</span> DEEP
+            </h1>
+        </div>
+
+        <!-- Full Blooming Lotus Animation -->
+        <div class="lotus-wrapper">
+            <div class="lotus-glow"></div>
+            <div class="lotus-base"></div>
+            
+            <div class="lotus-container">
+                <!-- Golden Core -->
+                <div class="lotus-core"></div>
+
+                <!-- Center Petal -->
+                <div class="petal center"></div>
+
+                <!-- Inner Layer -->
+                <div class="petal inner p-i1"></div>
+                <div class="petal inner p-i2"></div>
+
+                <!-- Middle Layer -->
+                <div class="petal middle p-m1"></div>
+                <div class="petal middle p-m2"></div>
+                <div class="petal middle p-m3"></div>
+                <div class="petal middle p-m4"></div>
+
+                <!-- Outer Layer -->
+                <div class="petal outer p-o1"></div>
+                <div class="petal outer p-o2"></div>
+                <div class="petal outer p-o3"></div>
+                <div class="petal outer p-o4"></div>
+            </div>
+        </div>
+
+        <!-- Bottom Animated Text -->
+        <div class="bottom-message">
+            <h2 class="love-declaration">I LOVE YOU, SIR.</h2>
+            <div class="ornament-line"></div>
+        </div>
+    </div>
+
+    <script>
+        // Generate Floating Luxury Gold Particles
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 45;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            const size = Math.random() * 4 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}%`;
+            
+            const duration = Math.random() * 8 + 7;
+            const delay = Math.random() * 5;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${delay}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
+
+        // Password Validation Logic
+        const passwordInput = document.getElementById('password-input');
+        const lockScreen = document.getElementById('lock-screen');
+        const mainScene = document.getElementById('main-scene');
+        const errorMsg = document.getElementById('error-msg');
+
+        // Allow pressing "Enter" key to unlock
+        passwordInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        function checkPassword() {
+            const enteredPassword = passwordInput.value.trim();
+
+            if (enteredPassword === 'DEEPMO') {
+                errorMsg.style.opacity = '0';
+                lockScreen.classList.add('hidden');
+                
+                // Trigger the Blooming Lotus & Text Animations
+                setTimeout(() => {
+                    lockScreen.style.display = 'none';
+                    mainScene.classList.add('active');
+                }, 600);
+            } else {
+                errorMsg.style.opacity = '1';
+                lockScreen.classList.remove('shake');
+                void lockScreen.offsetWidth; // Trigger reflow to restart animation
+                lockScreen.classList.add('shake');
+                passwordInput.value = '';
+            }
+        }
+    </script>
+</body>
+</html>
